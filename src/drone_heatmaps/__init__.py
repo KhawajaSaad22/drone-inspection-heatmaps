@@ -1,0 +1,1 @@
+"""Drone inspection prototype."""

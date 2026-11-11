@@ -1,0 +1,18 @@
+services:
+  demo:
+    build:
+      context: .
+      target: base
+    volumes:
+      - ./outputs:/outputs
+    command: ["demo", "--output", "/outputs/demo"]
+  inspect:
+    profiles: [model]
+    build:
+      context: .
+      target: model
+    volumes:
+      - ./data:/data:ro
+      - ./models:/models:ro
+      - ./outputs:/outputs
+    command: ["--help"]
