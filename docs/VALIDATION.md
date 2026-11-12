@@ -8,6 +8,10 @@ All six repositories' updated workflows passed. The Linux container runtime can
 see my RTX 4060 through NVIDIA passthrough. This is not a trained-model GPU
 accuracy or throughput benchmark. Earlier entries below describe their check dates.
 
+The local model image also built successfully. RF-DETR Nano/Small imports and a
+basic PyTorch GPU tensor computation passed with PyTorch 2.15.0+cu132 and RF-DETR
+1.12.0. No trained defect checkpoint was used by this compatibility smoke check.
+
 ## Reliability update — 12 November 2026
 
 All 12 local drone tests pass. The updated Python 3.11 Linux base container builds
