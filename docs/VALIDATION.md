@@ -1,5 +1,13 @@
 # Validation history
 
+## Final build checks — 12 November 2026
+
+The updated GitHub workflow passed the demo pipeline and RF-DETR model-container
+build/import check: https://github.com/KhawajaSaad22/drone-inspection-heatmaps/actions/runs/43145941029 .
+All six repositories' updated workflows passed. The Linux container runtime can
+see my RTX 4060 through NVIDIA passthrough. This is not a trained-model GPU
+accuracy or throughput benchmark. Earlier entries below describe their check dates.
+
 ## Reliability update — 12 November 2026
 
 All 12 local drone tests pass. The updated Python 3.11 Linux base container builds

@@ -2,6 +2,10 @@
 
 ## Implementation follow-up
 
+The updated workflows passed in all six repositories, including Windows packaging
+for the workbench and the new RF-DETR model-container import check. The Linux
+drone demo runs locally, and NVIDIA passthrough exposes my RTX 4060 to containers.
+
 I implemented and tested the software changes after the initial review: chronological
 verifier frames; approved-mask integrity and approval reset; group-overlap checks;
 negative-query metrics; PDF/reindex regression tests; dataset auditing; process-memory
