@@ -12,3 +12,10 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: docker build --target base -t drone-heatmaps .
       - run: docker run --rm drone-heatmaps demo --output /tmp/demo
+  model-container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --target model -t drone-heatmaps-model .
+      - run: docker run --rm --entrypoint python drone-heatmaps-model -c "from rfdetr import RFDETRSegNano, RFDETRSegSmall; import torch; print(torch.__version__)"

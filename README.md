@@ -107,6 +107,37 @@ is every frame. A fresh output directory prevents overwriting earlier evidence.
 Linux CI checks core behavior, synthetic video integration and the demo container.
 Actual model training and hardware benchmarking require data, weights and hardware.
 
+## Reliability and storage options
+
+Runs record `running`, `completed`, `incomplete` or `failed` in `run.json`, together
+with source hash, dependency versions and failure details. An advisory frame-count
+mismatch produces `incomplete` and CLI exit code 3. Decoder exhaustion is not a
+guarantee of an uncorrupted video. Each frame records decoder timestamps when they
+are finite and increasing, or an explicit nominal-FPS fallback otherwise. Fallback
+timestamps are approximate for variable-frame-rate footage.
+
+For a smaller output, add `--evidence-mode frame --no-previews --heatmap-format packed`.
+Packed grids are consecutive 4,096-byte uint8 records in `heatmaps/maps.bin`;
+`heatmap_offset_bytes` in each manifest row locates that frame's grid. For example:
+
+```python
+import numpy as np
+with open('outputs/run/heatmaps/maps.bin', 'rb') as stream:
+    stream.seek(row['heatmap_offset_bytes'])
+    grid = np.frombuffer(stream.read(4096), dtype=np.uint8).reshape(64, 64)
+```
+
+`--evidence-gap-s 1` optionally retains at most one suspicious view per second;
+every processed frame still has a score and grid. This is a time-based storage
+policy, not unique-defect tracking, and may skip useful views. It defaults to zero.
+`--evidence-mode crops` retains crops only; `both` preserves the original behavior.
+
+Summary reports distinguish suspicious frames from evidence-retained frames, include
+processing latency p50/p95 and exact total output bytes, including the summary.
+Compare total output/source ratio and recall before claiming storage savings.
+Model checkpoint hashes are recorded by the real-inference CLI. Adapter unit tests
+use simulated model outputs; the model CI build checks imports only.
+
 ## Upstream references and licensing
 
 - [RF-DETR repository and model licenses](https://github.com/roboflow/rf-detr)

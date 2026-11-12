@@ -1,4 +1,20 @@
-# Initial validation
+# Validation history
+
+## Reliability update — 12 November 2026
+
+All 12 local drone tests pass. The updated Python 3.11 Linux base container builds
+locally and its synthetic video demo completes (20 processed, five suspicious/five
+retained frames). Docker Compose configuration validation passes. This validates
+the video pipeline, not learned defect accuracy. The RF-DETR model-target build
+and remote workflow checks are tracked separately.
+
+The initial Linux demo-container workflow succeeded on GitHub. Local regression
+coverage now includes failed/incomplete run state, timestamp fallback, packed grids,
+evidence options, byte accounting and a simulated RF-DETR adapter. CI also builds
+the model target and checks imports without downloading model weights. Actual
+checkpoint inference, GPU performance and real defect accuracy remain unverified.
+
+The initial results below are historical, before these updates.
 
 Validated locally on Windows with Python 3.14, NumPy 2.5.4 and
 opencv-python-headless 4.14.0.94. Linux container target is Python 3.11.
@@ -15,7 +31,7 @@ opencv-python-headless 4.14.0.94. Linux container target is Python 3.11.
 
 Not yet validated: RF-DETR checkpoint loading/prediction, real defect recall,
 GPU throughput, Linux execution, container builds, or Jetson deployment. Linux CI
-is configured but has not run remotely. No inspection dataset or fine-tuned weights
+had not run remotely at the initial check; the later Linux demo workflow succeeded. No inspection dataset or fine-tuned weights
 were supplied. Dependency versions need locking after model/hardware validation.
 
 The first integration-test attempt hit restricted Windows temporary-folder access.

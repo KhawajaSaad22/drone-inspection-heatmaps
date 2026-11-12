@@ -12,6 +12,8 @@ class SyntheticDetector:
 
 class RFDETRDetector:
     def __init__(self, weights, size="nano", device="cpu", threshold=0.5):
+        if size not in ('nano','small') or not 0<threshold<=1:
+            raise ValueError('Use nano/small and a threshold in (0, 1]')
         if not Path(weights).is_file():
             raise ValueError("Supply an existing fine-tuned segmentation checkpoint")
         try:
